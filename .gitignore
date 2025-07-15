@@ -8,6 +8,10 @@ build/
 # Environment variables
 .env
 
+.gitignore
+docker-compose.yaml
+
+
 # Logs
 logs/
 *.log
@@ -22,3 +26,6 @@ Thumbs.db
 
 # Coverage reports
 coverage/
+/src/generated/prisma
+
+/src/generated/prisma
