@@ -1,6 +1,7 @@
 import { Router } from "express";
 import * as auth from "../controllers/auth"
 import * as events from "../controllers/events"
+import * as groups from "../controllers/groups"
 
 const router = Router();
 
@@ -24,6 +25,12 @@ router.put('/events/:id', auth.validate, events.updateEvent)
 
 // rota de apagar eventos
 router.delete('/events/:id', auth.validate, events.deleteEvents)
+
+// rota que busca todos os grupos de um evento
+router.get('/events/:id_event/groups', auth.validate, groups.getAll)
+
+
+
 
 export default router;
  

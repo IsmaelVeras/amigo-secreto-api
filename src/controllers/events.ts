@@ -62,7 +62,7 @@ export const updateEvent: RequestHandler = async (req, res) => {
   res.json({error: 'Ocorreu erro ao atualizar'})
 }
 
-// Controller para deletar eventos
+// Controller para deletar evento
 export const deleteEvents: RequestHandler = async (req, res) => {
   const  { id } = req.params;
   
