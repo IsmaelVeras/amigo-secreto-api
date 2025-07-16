@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma"
+import { PrismaClient, Prisma } from "../generated/prisma"
 
 const prisma = new PrismaClient();
 
@@ -20,3 +20,15 @@ export const getOne = async (id: number) => {
     return false;
   }
 } 
+
+// Type que busca os campos necessários no Prisma para o CREATE 
+type EventCreateData = Prisma.Args<typeof prisma.event, 'create'>['data']
+
+// Função Cadastrar Eventos
+export const addEvent = async (data: EventCreateData) => {
+  try {
+    return await prisma.event.create({ data })
+  } catch (error) {
+    return false
+  }
+}

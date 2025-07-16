@@ -1,8 +1,8 @@
 import type { RequestHandler } from "express";
 import * as events from "../services/events"
-import { parse } from "path";
+import z from "zod";
 
-
+// controller que busca todos os eventos
 export const getALl: RequestHandler = async (req, res) => {
   const items = await events.getALl();
   if (items) return res.json({events: items})
@@ -10,11 +10,28 @@ export const getALl: RequestHandler = async (req, res) => {
   res.json({error: 'Ocorreu um erro'})
 }
 
-// Function to get a single event by ID  
+// Controller que busca o evento por ID  
 export const getEventById: RequestHandler = async (req, res) => {
   const { id } = req.params;
   const eventItem = await events.getOne(parseInt(id) );
   if (eventItem) return res.json({event: eventItem})
 
   res.json({error: 'Ocorreu um erro'})
+}
+
+// Controller que cadastra eventos
+export const createEvent: RequestHandler = async(req, res) => {
+  const addEventSchema = z.object({
+    title: z.string(),
+    description: z.string(),
+    grouped: z.boolean()
+  })  
+
+  const body = addEventSchema.safeParse(req.body)
+  if(!body.success) return res.json({error: 'Dados inválidos'})
+
+  const newEvent = await events.addEvent(body.data);
+  if(newEvent) return res.status(201).json({ event: newEvent })
+
+  res.json({error: 'Ocorreu erro ao cadastrar'})
 }
