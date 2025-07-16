@@ -19,6 +19,9 @@ router.get('/events/:id', auth.validate, events.getEventById)
 // rota que cadastra eventos 
 router.post('/events', auth.validate, events.createEvent)
 
+// rota de atualização de eventos
+router.put('/events/:id', auth.validate, events.updateEvent)
+
 
 export default router;
  

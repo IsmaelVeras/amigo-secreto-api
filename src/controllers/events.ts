@@ -35,3 +35,28 @@ export const createEvent: RequestHandler = async(req, res) => {
 
   res.json({error: 'Ocorreu erro ao cadastrar'})
 }
+
+// Controller que atualiza eventos
+export const updateEvent: RequestHandler = async (req, res) => {
+  const { id } = req.params;
+  const updateEventSchema = z.object({
+    status: z.boolean().optional(),
+    title: z.string().optional(),
+    description: z.string().optional(),
+    grouped: z.boolean().optional(),
+  })
+
+  const body = updateEventSchema.safeParse(req.body)
+  if(!body.success) return res.json({error: 'Dados inválidos'})
+
+  const updateEvent = await events.updateEvent(parseInt(id), body.data);
+  if(updateEvent){
+    if(updateEvent.status) {
+      // TODO: fazer o sorteio
+    }else {
+      // TODO: Limpar o sorteio
+    }
+    return res.json({ event: updateEvent })
+  }
+  res.json({error: 'Ocorreu erro ao atualizar'})
+}

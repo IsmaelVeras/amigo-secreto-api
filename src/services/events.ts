@@ -32,3 +32,17 @@ export const addEvent = async (data: EventCreateData) => {
     return false
   }
 }
+
+type EventsUpdateData = Prisma.Args<typeof prisma.event, 'update'>['data']
+
+// Função Atualizar Eventos
+export const updateEvent = async (id: number, data: EventsUpdateData) => {
+  try {
+    return await prisma.event.update({
+      where: { id },
+      data
+    })
+  } catch (error) {
+    return false
+  }
+}
