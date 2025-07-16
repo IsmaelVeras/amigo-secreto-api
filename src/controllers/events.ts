@@ -1,6 +1,7 @@
 import type { RequestHandler } from "express";
 import * as events from "../services/events"
 import z from "zod";
+import { EventEmitter } from "stream";
 
 // controller que busca todos os eventos
 export const getALl: RequestHandler = async (req, res) => {
@@ -60,3 +61,13 @@ export const updateEvent: RequestHandler = async (req, res) => {
   }
   res.json({error: 'Ocorreu erro ao atualizar'})
 }
+
+// Controller para deletar eventos
+export const deleteEvents: RequestHandler = async (req, res) => {
+  const  { id } = req.params;
+  
+  const deletedId = await events.removeEvent(parseInt(id));
+  if(deletedId) return res.json({ event: deletedId}) 
+  
+    res.json({error: 'Ocorreu erro ao deletar'})
+} 

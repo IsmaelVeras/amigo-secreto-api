@@ -46,3 +46,12 @@ export const updateEvent = async (id: number, data: EventsUpdateData) => {
     return false
   }
 }
+
+// Função para Deletar evento
+export const removeEvent = async (id: number) => {
+  try {
+    return await prisma.event.delete( {where: {id} } )
+  } catch (error) {
+    return false
+  }
+}

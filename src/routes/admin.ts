@@ -22,6 +22,8 @@ router.post('/events', auth.validate, events.createEvent)
 // rota de atualização de eventos
 router.put('/events/:id', auth.validate, events.updateEvent)
 
+// rota de apagar eventos
+router.delete('/events/:id', auth.validate, events.deleteEvents)
 
 export default router;
  
