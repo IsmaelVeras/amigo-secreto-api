@@ -1,24 +1,93 @@
-PLANEJAMENTO DE ROTAS
+📍 Planejamento de Rotas - API
 
-- POST   /admin/login
+API RESTful para gerenciamento de eventos, grupos e pessoas dentro do contexto de planejamento de rotas. Contém rotas para administradores e acesso público para consulta de eventos e pessoas.
 
-- GET    /admin/events
-- GET    /admin/events/:id
-- POST   /admin/events
-- PUT    /admin/events/:id
-- DELETE /admin/events/:id
+🔐 Autenticação
+POST /admin/login
 
-- GET    /admin/events/:id_event/groups
-- GET    /admin/events/:id_event/groups/:id
-- POST   /admin/events/:id_event/groups
-- PUT    /admin/events/:id_event/groups/:id
-- DELETE /admin/events/:id_event/groups/:id
+    Autentica o administrador.
 
-- GET    /admin/events/:id_event/groups/:id_group/people
-- GET    /admin/events/:id_event/groups/:id_group/people/:id
-- POST   /admin/events/:id_event/groups/:id_group/people
-- PUT    /admin/events/:id_event/groups/:id_group/people/:id
-- DELETE /admin/events/:id_event/groups/:id_group/people/:id
+    Body: { "email": "admin@email.com", "password": "senha" }
 
-- GET    /events/:id
-- GET    /events/:id_event/person?cpf=123
+    Retorno: Token JWT
+
+📅 Eventos (Admin)
+GET /admin/events
+
+    Lista todos os eventos.
+
+GET /admin/events/:id
+
+    Busca um evento específico pelo ID.
+
+POST /admin/events
+
+    Cria um novo evento.
+
+    Body: { "title": "Evento", "date": "2025-07-18", ... }
+
+PUT /admin/events/:id
+
+    Atualiza um evento existente.
+
+DELETE /admin/events/:id
+
+    Remove um evento.
+
+👥 Grupos (Admin)
+GET /admin/events/:id_event/groups
+
+    Lista todos os grupos de um evento.
+
+GET /admin/events/:id_event/groups/:id
+
+    Busca um grupo específico dentro de um evento.
+
+POST /admin/events/:id_event/groups
+
+    Cria um novo grupo em um evento.
+
+PUT /admin/events/:id_event/groups/:id
+
+    Atualiza os dados de um grupo.
+
+DELETE /admin/events/:id_event/groups/:id
+
+    Remove um grupo de um evento.
+
+🧑 Pessoas (Admin)
+GET /admin/events/:id_event/groups/:id_group/people
+
+    Lista as pessoas de um grupo específico.
+
+GET /admin/events/:id_event/groups/:id_group/people/:id
+
+    Retorna os dados de uma pessoa específica.
+
+POST /admin/events/:id_event/groups/:id_group/people
+
+    Adiciona uma nova pessoa ao grupo.
+
+PUT /admin/events/:id_event/groups/:id_group/people/:id
+
+    Atualiza os dados de uma pessoa.
+
+DELETE /admin/events/:id_event/groups/:id_group/people/:id
+
+    Remove uma pessoa do grupo.
+
+🌐 Acesso Público
+GET /events/:id
+
+    Retorna os dados públicos de um evento.
+
+GET /events/:id_event/person?cpf=123
+
+    Busca uma pessoa em um evento pelo CPF.
+
+📌 Tecnologias Utilizadas
+    Node.js
+    Express.js
+    TypeScript
+    JWT (autenticação)
+    PostgreSQL
