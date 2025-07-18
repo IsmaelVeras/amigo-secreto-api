@@ -51,6 +51,8 @@ router.post('/events/:id_event/groups/:id_group/people', auth.validate, people.c
 // route to update a person
 router.put('/events/:id_event/groups/:id_group/people/:id', auth.validate, people.updatePerson)
 
+// route to delete a person
+router.delete('/events/:id_event/groups/:id_group/people/:id', auth.validate, people.deletePerson)
 
 export default router;
  

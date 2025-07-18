@@ -82,3 +82,18 @@ export const updatePerson: RequestHandler = async (req, res) => {
 
   res.json({ error: 'Ocorreu um erro ao atu alizar' });
 }
+
+// delete person
+export const deletePerson: RequestHandler = async (req, res) => {
+  const { id, id_event, id_group } = req.params;
+
+  const deleted = await people.removePerson({
+    id: parseInt(id),
+    id_event: parseInt(id_event),
+    id_group: parseInt(id_group)
+  });
+
+  if (deleted) return res.json({ person: deleted  });
+
+  res.json({ error: 'Ocorreu um erro ao deletar' });
+}
