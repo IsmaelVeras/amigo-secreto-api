@@ -35,6 +35,9 @@ router.get('/events/:id_event/groups/:id', auth.validate, groups.getGroupById)
 // rota que cadastra grupo
 router.post('/events/:id_event/groups', auth.validate, groups.createGroup)
 
+// rota de atualização de grupo
+router.put('/events/:id_event/groups/:id', auth.validate, groups.updateGroup)
+
 
 export default router;
  

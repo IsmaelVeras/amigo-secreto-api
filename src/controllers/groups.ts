@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import * as groups from '../services/groups';
 import z from "zod";
+import { title } from "process";
 
 // Controller to get all groups for a specific event
 export const getAll: RequestHandler = async (req, res) => {
@@ -45,3 +46,23 @@ export const createGroup: RequestHandler = async (req, res) => {
 
   res.json({ error: 'Ocorreu um erro ao criar o grupo' });
 };
+
+// Controller to update a group
+export const updateGroup: RequestHandler = async (req, res) => {
+  const { id, id_event } = req.params;
+ 
+  const updateGroupSchema = z.object({
+    name: z.string().optional(),
+  });
+
+  const body = updateGroupSchema.safeParse(req.body);
+  if (!body.success) return res.json({ error: 'Dados inválidos' });
+
+  const updatedGroup = await groups.update(
+    { id: parseInt(id), id_event: parseInt(id_event) },
+    body.data
+  ); 
+  if (updatedGroup) return res.json({ group: updatedGroup });
+
+  res.json({ error: 'Ocorreu um erro ao atualizar o grupo' });
+}
