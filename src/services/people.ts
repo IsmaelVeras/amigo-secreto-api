@@ -11,13 +11,14 @@ export const getAll = async (filters: GetAllFilters) => {
 }
 
 // get person by id
-type GetOneFilters = { id: number; id_event?: number;}
+type GetOneFilters = { id_event: number; id_group?: number;  id?: number, cpf?: string; }
 export const getOne =  async (filters: GetOneFilters) => {
   try {
-    return await prisma.eventPeople.findUnique({
+    if (!filters.id && !filters.cpf) return false;
+    return await prisma.eventPeople.findFirst({
       where: filters
     })
-  } catch(err) {
+  } catch(err) { 
     return false;
   }
 } 
