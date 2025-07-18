@@ -43,3 +43,18 @@ export const add = async (data: PeopleCreateData) => {
     return false;
   }
 }
+
+// update person 
+type PeopleUpdateData = Prisma.Args<typeof prisma.eventPeople, 'update'>['data']
+type UpdateFilters = {id?: number; id_event: number; id_group?: number;}
+
+export const update = async (filters: UpdateFilters, data: PeopleUpdateData) => { 
+  try {
+    return await prisma.eventPeople.updateMany({
+      where: filters,
+      data 
+    });
+  } catch (err) {
+    return false;
+  }
+}

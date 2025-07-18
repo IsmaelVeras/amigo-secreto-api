@@ -48,5 +48,9 @@ router.get('/events/:id_event/groups/:id_group/people/:id', auth.validate, peopl
 // router to create a person
 router.post('/events/:id_event/groups/:id_group/people', auth.validate, people.createPerson)
 
+// route to update a person
+router.put('/events/:id_event/groups/:id_group/people/:id', auth.validate, people.updatePerson)
+
+
 export default router;
  
