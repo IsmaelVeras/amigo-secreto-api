@@ -2,7 +2,7 @@ import type { RequestHandler } from "express";
 import { Prisma } from "../generated/prisma";
 import * as people from '../services/people'
 
-// busca todas as pessoas de um event/grupo
+// get all people from a group
 export const getAll: RequestHandler = async (req, res) => {
   const { id_event, id_group } = req.params;
   
@@ -11,6 +11,19 @@ export const getAll: RequestHandler = async (req, res) => {
      id_group: parseInt(id_group)
   }) 
   if (items) return res.json({people: items})
+
+  res.json({error: 'Ocorreu um erro'})
+}
+
+// search person by id
+export const getPersonById: RequestHandler = async (req, res) => {
+  const { id, id_event } = req.params;
+  const peopleItem = await people.getOne({
+    id: parseInt(id),
+    id_event: parseInt(id_event)
+  }
+  );
+  if (peopleItem) return res.json({event: peopleItem})
 
   res.json({error: 'Ocorreu um erro'})
 }

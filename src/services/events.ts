@@ -2,6 +2,7 @@ import { PrismaClient, Prisma } from "../generated/prisma"
 
 const prisma = new PrismaClient();
 
+// Function to get all events
 export const getALl = async () => {
   try {
     return await prisma.event.findMany()
@@ -21,10 +22,10 @@ export const getOne = async (id: number) => {
   }
 } 
 
-// Type que busca os campos necessários no Prisma para o CREATE 
+// Type for event creation data 
 type EventCreateData = Prisma.Args<typeof prisma.event, 'create'>['data']
 
-// Função Cadastrar Eventos
+// Function to add a new event
 export const addEvent = async (data: EventCreateData) => {
   try {
     return await prisma.event.create({ data })
@@ -33,9 +34,10 @@ export const addEvent = async (data: EventCreateData) => {
   }
 }
 
+// Type for event update data
 type EventsUpdateData = Prisma.Args<typeof prisma.event, 'update'>['data']
 
-// Função Atualizar Eventos
+// Function to update an event
 export const updateEvent = async (id: number, data: EventsUpdateData) => {
   try {
     return await prisma.event.update({
@@ -47,7 +49,7 @@ export const updateEvent = async (id: number, data: EventsUpdateData) => {
   }
 }
 
-// Função para Deletar evento
+// Function to remove an event
 export const removeEvent = async (id: number) => {
   try {
     return await prisma.event.delete( {where: {id} } )

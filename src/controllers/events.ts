@@ -2,7 +2,7 @@ import type { RequestHandler } from "express";
 import * as events from "../services/events"
 import z from "zod";
 
-// controller que busca todos os eventos
+// Controller search all events
 export const getALl: RequestHandler = async (req, res) => {
   const items = await events.getALl();
   if (items) return res.json({events: items})
@@ -10,7 +10,7 @@ export const getALl: RequestHandler = async (req, res) => {
   res.json({error: 'Ocorreu um erro'})
 }
 
-// Controller que busca o evento por ID  
+// Controller search event by id
 export const getEventById: RequestHandler = async (req, res) => {
   const { id } = req.params;
   const eventItem = await events.getOne(parseInt(id) );
@@ -19,7 +19,7 @@ export const getEventById: RequestHandler = async (req, res) => {
   res.json({error: 'Ocorreu um erro'})
 }
 
-// Controller que cadastra eventos
+// Controller that creates an event
 export const createEvent: RequestHandler = async(req, res) => {
   const addEventSchema = z.object({
     title: z.string(),
@@ -36,7 +36,7 @@ export const createEvent: RequestHandler = async(req, res) => {
   res.json({error: 'Ocorreu erro ao cadastrar'})
 }
 
-// Controller que atualiza eventos
+// Controller to update an event
 export const updateEvent: RequestHandler = async (req, res) => {
   const { id } = req.params;
   const updateEventSchema = z.object({
@@ -61,7 +61,7 @@ export const updateEvent: RequestHandler = async (req, res) => {
   res.json({error: 'Ocorreu erro ao atualizar'})
 }
 
-// Controller para deletar evento
+// Controller to delete an event
 export const deleteEvents: RequestHandler = async (req, res) => {
   const  { id } = req.params;
   

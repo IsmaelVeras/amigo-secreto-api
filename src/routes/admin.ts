@@ -6,41 +6,45 @@ import * as people from '../controllers/people'
 
 const router = Router();
 
-// rota para acessar tela de login 
+// route to login 
 router.post('/login', auth.login)
 
-// rota que busca todos os eventos
+// route to get all events
 router.get('/events', auth.validate, events.getALl)
 
-// rota que busca eventos por id 
+// route to get event by id
 router.get('/events/:id', auth.validate, events.getEventById)
 
-// rota que cadastra eventos 
+// route to create an event
 router.post('/events', auth.validate, events.createEvent)
 
-// rota de atualização de eventos
+// route to update event
 router.put('/events/:id', auth.validate, events.updateEvent)
 
-// rota de apagar eventos
+// route delete event
 router.delete('/events/:id', auth.validate, events.deleteEvents)
 
-// rota que busca todos os grupos de um evento
+// route to get all groups from an event
 router.get('/events/:id_event/groups', auth.validate, groups.getAll)
 
-// rota que busca grupo por id
+// route to get group by id
 router.get('/events/:id_event/groups/:id', auth.validate, groups.getGroupById)
 
-// rota que cadastra grupo
+// route to create a group
 router.post('/events/:id_event/groups', auth.validate, groups.createGroup)
 
-// rota de atualização de grupo
+// route to update group
 router.put('/events/:id_event/groups/:id', auth.validate, groups.updateGroup)
 
-// rota para deletar grupo 
+// route delete group 
 router.delete('/events/:id_event/groups/:id', auth.validate, groups.deleteGroup)
 
-// rota que busca todos as pessoas de um grupo
+// route to get all people from an event
 router.get('/events/:id_event/groups/:id_group/people', auth.validate, people.getAll)
+
+// route get person by id
+router.get('/events/:id_event/groups/:id_group/people/:id', auth.validate, people.getPersonById)
+
 
 export default router;
  
