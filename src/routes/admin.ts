@@ -32,7 +32,8 @@ router.get('/events/:id_event/groups', auth.validate, groups.getAll)
 // rota que busca grupo por id
 router.get('/events/:id_event/groups/:id', auth.validate, groups.getGroupById)
 
-
+// rota que cadastra grupo
+router.post('/events/:id_event/groups', auth.validate, groups.createGroup)
 
 
 export default router;
