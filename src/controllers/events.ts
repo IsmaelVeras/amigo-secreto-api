@@ -1,7 +1,6 @@
 import type { RequestHandler } from "express";
 import * as events from "../services/events"
 import z from "zod";
-import { EventEmitter } from "stream";
 
 // controller que busca todos os eventos
 export const getALl: RequestHandler = async (req, res) => {

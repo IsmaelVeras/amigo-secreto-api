@@ -1,15 +1,13 @@
 import { Router } from "express";
-import * as auth from "../controllers/auth"
-import * as events from "../controllers/events"
-import * as groups from "../controllers/groups"
+import * as auth from '../controllers/auth'
+import * as events from '../controllers/events'
+import * as groups from '../controllers/groups'
+import * as people from '../controllers/people'
 
 const router = Router();
 
 // rota para acessar tela de login 
 router.post('/login', auth.login)
-
-// rota de ping para teste
-router.get('/ping', auth.validate, (req, res) => res.json ({pong: true, admin: true }))
 
 // rota que busca todos os eventos
 router.get('/events', auth.validate, events.getALl)
@@ -40,6 +38,9 @@ router.put('/events/:id_event/groups/:id', auth.validate, groups.updateGroup)
 
 // rota para deletar grupo 
 router.delete('/events/:id_event/groups/:id', auth.validate, groups.deleteGroup)
+
+// rota que busca todos as pessoas de um grupo
+router.get('/events/:id_event/groups/:id_group/people', auth.validate, people.getAll)
 
 export default router;
  

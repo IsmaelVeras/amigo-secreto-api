@@ -1,7 +1,6 @@
 import { RequestHandler } from "express";
 import * as groups from '../services/groups';
 import z from "zod";
-import { title } from "process";
 
 // Controller to get all groups for a specific event
 export const getAll: RequestHandler = async (req, res) => {

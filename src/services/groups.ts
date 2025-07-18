@@ -37,6 +37,7 @@ export const create = async (data: GroupsCreateData) => {
   }
 }
 
+// update group
 type UpdateFilters = {id: number; id_event?: number;}
 type GroupsUpdateData = Prisma.Args<typeof prisma.eventGroup, 'update'>['data']
 
