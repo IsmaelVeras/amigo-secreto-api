@@ -12,3 +12,15 @@ export const getAll: RequestHandler = async (req, res) => {
   return res.json({ error: "Ocorreu um erro"  });
 };
  
+// Controller to get group specific by id
+export const getGroupById: RequestHandler = async (req, res) => {
+  const { id, id_event } = req.params;
+  const groupItem = await groups.getOne({
+    id: parseInt(id),
+    id_event: parseInt(id_event )
+  }
+  );
+  if (groupItem) return res.json({event: groupItem})
+
+  res.json({error: 'Ocorreu um erro'})
+}

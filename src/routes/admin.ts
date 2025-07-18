@@ -29,6 +29,9 @@ router.delete('/events/:id', auth.validate, events.deleteEvents)
 // rota que busca todos os grupos de um evento
 router.get('/events/:id_event/groups', auth.validate, groups.getAll)
 
+// rota que busca grupo por id
+router.get('/events/:id_event/groups/:id', auth.validate, groups.getGroupById)
+
 
 
 
