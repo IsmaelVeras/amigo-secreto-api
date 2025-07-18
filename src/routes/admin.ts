@@ -45,6 +45,8 @@ router.get('/events/:id_event/groups/:id_group/people', auth.validate, people.ge
 // route get person by id
 router.get('/events/:id_event/groups/:id_group/people/:id', auth.validate, people.getPersonById)
 
+// router to create a person
+router.post('/events/:id_event/groups/:id_group/people', auth.validate, people.createPerson)
 
 export default router;
  

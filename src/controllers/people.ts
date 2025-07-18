@@ -1,6 +1,6 @@
 import type { RequestHandler } from "express";
-import { Prisma } from "../generated/prisma";
 import * as people from '../services/people'
+import z from "zod";
 
 // get all people from a group
 export const getAll: RequestHandler = async (req, res) => {
@@ -28,4 +28,28 @@ export const getPersonById: RequestHandler = async (req, res) => {
 
   res.json({error: 'Ocorreu um erro '})
 }
- 
+
+// create a person
+export const createPerson: RequestHandler = async (req, res) => {
+   const { id_event, id_group } = req.params;
+    
+   const addPersonSchema = z.object({
+     name: z.string() ,
+     cpf: z.string().transform(val => val.replace(/\.|-/gm, ''))
+   });
+
+   const body = addPersonSchema.safeParse(req.body);
+    if (!body.success) return res.json({error: 'Dados inválidos'});
+
+    const newPerson = await people.add({
+      name: body.data.name,
+      cpf: body.data.cpf,
+      id_event: parseInt(id_event),
+      id_group: parseInt(id_group)
+    });
+
+    if(newPerson) return res.status(201).json({ person: newPerson })
+    
+    res.json({error: 'Ocorreu um erro '})
+}
+   

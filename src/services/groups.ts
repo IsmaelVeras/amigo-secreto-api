@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 export const getAll = async (id_event: number) => {
   try {
     return await prisma.eventGroup.findMany({ where: {id_event }});
-  } catch (error) { return false }
+  } catch (err) { return false }
 }
 
 // get group by id
@@ -32,7 +32,7 @@ export const create = async (data: GroupsCreateData) => {
     if (!eventItem) return false;
 
     return await prisma.eventGroup.create({ data });
-  } catch (error)  {
+  } catch (err)  {
     return false;
   }
 }
@@ -47,7 +47,7 @@ export const update = async (filters: UpdateFilters, data: GroupsUpdateData) => 
       where: filters,
       data 
     });
-  } catch (error) {
+  } catch (err) {
     return false;
   }
 } 
@@ -60,7 +60,7 @@ export const removeGroup = async (filters: DeleteFilters) => {
     return await prisma.eventGroup.delete({
       where: filters
     });
-  } catch (error) {
+  } catch (err) {
     return false;
   }
 }

@@ -29,7 +29,7 @@ type EventCreateData = Prisma.Args<typeof prisma.event, 'create'>['data']
 export const addEvent = async (data: EventCreateData) => {
   try {
     return await prisma.event.create({ data })
-  } catch (error) {
+  } catch (err) {
     return false
   }
 }
@@ -44,7 +44,7 @@ export const updateEvent = async (id: number, data: EventsUpdateData) => {
       where: { id },
       data
     })
-  } catch (error) {
+  } catch (err) {
     return false
   }
 }
@@ -53,7 +53,7 @@ export const updateEvent = async (id: number, data: EventsUpdateData) => {
 export const removeEvent = async (id: number) => {
   try {
     return await prisma.event.delete( {where: {id} } )
-  } catch (error) {
+  } catch (err) {
     return false
   }
 }
