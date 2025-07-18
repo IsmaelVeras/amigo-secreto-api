@@ -66,3 +66,17 @@ export const updateGroup: RequestHandler = async (req, res) => {
 
   res.json({ error: 'Ocorreu um erro ao atualizar o grupo' });
 }
+
+// Controller to delete a group
+export const deleteGroup: RequestHandler = async (req, res) => {
+  const { id, id_event } = req.params;
+
+  const deleted = await groups.removeGroup({
+    id: parseInt(id),
+    id_event: parseInt(id_event)
+  });
+
+  if (deleted) return res.json({ group: 'Grupo deletado com sucesso' });
+
+  res.json({ error: 'Ocorreu um erro ao deletar o grupo' });
+}

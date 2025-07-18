@@ -50,3 +50,16 @@ export const update = async (filters: UpdateFilters, data: GroupsUpdateData) => 
     return false;
   }
 } 
+
+// delete group
+type DeleteFilters = {id: number; id_event?: number;}
+
+export const removeGroup = async (filters: DeleteFilters) => {
+  try {
+    return await prisma.eventGroup.delete({
+      where: filters
+    });
+  } catch (error) {
+    return false;
+  }
+}

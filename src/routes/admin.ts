@@ -38,6 +38,8 @@ router.post('/events/:id_event/groups', auth.validate, groups.createGroup)
 // rota de atualização de grupo
 router.put('/events/:id_event/groups/:id', auth.validate, groups.updateGroup)
 
+// rota para deletar grupo 
+router.delete('/events/:id_event/groups/:id', auth.validate, groups.deleteGroup)
 
 export default router;
  
