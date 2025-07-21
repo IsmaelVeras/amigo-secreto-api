@@ -1,5 +1,6 @@
 import type { RequestHandler } from "express";
 import * as events from "../services/events"
+import * as people from '../services/people'
 import z from "zod";
 
 // Controller search all events
@@ -52,9 +53,12 @@ export const updateEvent: RequestHandler = async (req, res) => {
   const updateEvent = await events.updateEvent(parseInt(id), body.data);
   if(updateEvent){
     if(updateEvent.status) {
-      // TODO: fazer o sorteio
-    }else {
-      // TODO: Limpar o sorteio
+      const result = await events.doMatches(parseInt(id));
+      if(!result) {
+        return res.json({error: 'Grupos impossíveis de serem formados '}) 
+      }
+    } else {
+      await people.update({ id_event: parseInt(id) }, { matched: ''} );
     }
     return res.json({ event: updateEvent })
   }
