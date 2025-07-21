@@ -117,7 +117,5 @@ export const doMatches = async (id: number): Promise<boolean> => {
       }
     }
   }
-
-
   return false; 
 }

@@ -1,6 +1,9 @@
 import type { RequestHandler } from "express";
 import * as people from '../services/people'
-import z from "zod";
+import z, { string } from "zod";
+import { decrypt } from "dotenv";
+import { decryptMatch } from "../utils/match";
+import id from "zod/v4/locales/id.cjs";
 
 // get all people from a group
 export const getAll: RequestHandler = async (req, res) => {
@@ -96,4 +99,47 @@ export const deletePerson: RequestHandler = async (req, res) => {
   if (deleted) return res.json({ person: deleted  });
 
   res.json({ error: 'Ocorreu um erro ao deletar' });
+}
+
+// search people by cpf
+export const searchPerson: RequestHandler = async (req, res) => {
+  const { id_event } = req.params
+   
+  const searchPersonSchema = z.object({
+     cpf: z.string().transform(val => val.replace(/\.|-/gm, '')) 
+  })
+  const query = searchPersonSchema.safeParse(req.query)
+
+  if(!query.success) {
+    return res.json({ error: 'Dados inválidos'  })
+  }
+
+  const personItem = await people.getOne({
+    id_event: parseInt(id_event),
+    cpf: query.data.cpf 
+  })
+
+  if (personItem && personItem.matched) {
+    const matchId = decryptMatch(personItem.matched)
+     
+    const personMatch = await people.getOne({
+      id_event: parseInt(id_event),
+      id: matchId
+    })
+
+    if(personMatch) {
+      return res.json({
+        person: {
+          id: personItem.id,
+          name: personItem.name
+        },
+        personMatch: {
+          id: personMatch.id,
+          name: personMatch.name
+        }
+      })
+    }
+  }
+
+  res.json({error: 'Ocorreu algum erro!'})
 }
